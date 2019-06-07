@@ -1,40 +1,47 @@
-(function(window) {
-  var Moip = window.Moip || {};
-  window.Moip = Moip;
+import ItauValidator from './banks/itau/itau_validator';
+import BradescoValidator from './banks/bradesco/bradesco_validator';
+import BancoDoBrasilValidator from './banks/brasil/banco_do_brasil_validator';
+import SantanderValidator from './banks/santander/santander_validator';
+import CitibankValidator from './banks/citibank/citibank_validator';
+import HSBCValidator from './banks/hsbc/hsbc_validator';
+import BanrisulValidator from './banks/banrisul/banrisul_validator';
+import CaixaValidador from './banks/caixa/caixa_validator';
+import RealValidator from './banks/real/real_validator';
 
-  function BankAccount() {
-    if ( !( this instanceof BankAccount ) ) {
-      return new BankAccount();
+import {GenericBankAccountValidator} from './banks/common/index'
+
+import {BANKS} from './config'
+
+export default class BankAccount {
+  constructor() {
+      this.validators = {
+        [BANKS.BRASIL]: new BancoDoBrasilValidator(),
+        [BANKS.BRADESCO]: new BradescoValidator(),
+        [BANKS.ITAU]: new ItauValidator(),
+        [BANKS.SANTANDER]: new SantanderValidator(),
+        [BANKS.CITIBANK]: new CitibankValidator(),
+        [BANKS.HSBC]: new HSBCValidator(),
+        [BANKS.BANRISUL]: new BanrisulValidator(),
+        [BANKS.CAIXA]: new CaixaValidador(),
+        [BANKS.REAL]: new RealValidator()
+      };
+  }
+
+  validator(bankNumber) {
+    if (this.validators[bankNumber]) {
+      return this.validators[bankNumber];
+    } else {
+      return GenericBankAccountValidator;
     }
   }
 
-  BankAccount.prototype = {
+  validate(params) {
+    
+    return new Promise((resolve, reject) => {
+      let validator = this.validator(params.bankNumber);
+      let errors = [];
 
-    validator: function (bankNumber) {
-
-      var validators = {
-        "001": Moip.BancoDoBrasilValidator,
-        "237": Moip.BradescoValidator,
-        "341": Moip.ItauValidator,
-        "033": Moip.SantanderValidator,
-        "745": Moip.CitibankValidator,
-        "399": Moip.HSBCValidator,
-        "041": Moip.BanrisulValidator
-      };
-
-      if (validators[bankNumber]) {
-        return validators[bankNumber];
-      } else {
-        return Moip.GenericBankAccountValidator;
-      }
-    },
-
-    validate: function (params){
-
-      var errors = [];
-      var validator = this.validator(params.bankNumber);
-
-      if(!Moip.GenericBankAccountValidator.bankNumberIsValid(params.bankNumber)){
+      if(!GenericBankAccountValidator.bankNumberIsValid(params.bankNumber)){
         errors.push({ description: "Banco inválido", code: "INVALID_BANK_NUMBER" });
       }
 
@@ -67,14 +74,13 @@
       }
 
       if(errors.length === 0) {
-        params.valid();
+        resolve();
       } else {
-        params.invalid({ errors: errors });
+        reject({ errors: errors });
       }
-    }
+    });
+    
 
-  };
+  }
+}
 
-  Moip.BankAccount = BankAccount();
-
-})(window);
