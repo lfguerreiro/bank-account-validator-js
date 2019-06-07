@@ -8,11 +8,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = env => {
   return [
     {
-      context: path.resolve(__dirname, './'),
       entry: ["./src/index.js"],
       output: {
         path: path.resolve(__dirname, "./dist"),
-        filename: "[name].[hash].js"
+        filename: "validator_bank.js"
       },
 
       devServer: {
@@ -63,15 +62,15 @@ module.exports = env => {
           hash: true,
           filename: "index.html",
           template: "./index.html",
-          // minify: {
-          //   minifyJS: true,
-          //   collapseWhitespace: true,
-          //   removeComments: true,
-          //   removeRedundantAttributes: true,
-          //   removeScriptTypeAttributes: true,
-          //   removeStyleLinkTypeAttributes: true,
-          //   useShortDoctype: true
-          // },
+          minify: {
+            minifyJS: true,
+            collapseWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true
+          },
         })
       ],
       optimization: {

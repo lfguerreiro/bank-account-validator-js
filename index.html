@@ -86,13 +86,6 @@
 
       </div>
     </div>
-    <div class="col-md-4"></div>
-    <footer class="footer">
-      <div class="container">
-        <div class="text-muted pull-right">Powered by <b><a href="http://www.moip.com.br">Moip</a></b></div>
-      </div>
-    </footer>
-    <div class="col-md-4"></div>
 
     <script src="<%=htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 
@@ -108,7 +101,7 @@
             accountCheckNumber : $("#account_check_number").val(),
           })
           .then(function (data) {
-            console.log('data DEUUUU', data)
+            console.log('Valid', data)
           }, function (err) {
             console.log('err', err)
           })
