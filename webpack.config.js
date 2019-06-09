@@ -63,7 +63,7 @@ module.exports = env => {
           filename: "index.html",
           template: "./index.html",
           minify: {
-            minifyJS: true,
+            //minifyJS: true,
             collapseWhitespace: true,
             removeComments: true,
             removeRedundantAttributes: true,
@@ -71,7 +71,16 @@ module.exports = env => {
             removeStyleLinkTypeAttributes: true,
             useShortDoctype: true
           },
-        })
+        }),
+        new webpack.BannerPlugin({ 
+          banner: `Banks Validator 
+https://github.com/lfguerreiro/bank-account-validator-js
+
+hash:[hash]
+chunkhash:[chunkhash]
+file:[file]`,
+          entryOnly: true,
+      })
       ],
       optimization: {
         minimizer: [
