@@ -40,7 +40,7 @@ class CitibankValidator {
     return CommonBankAccountValidator.accountNumberMsgError(this.accountNumberLength());
   }
 
-  accountNumberLength() { return 7; }
+  accountNumberLength() { return 10; }
 }
 
 export default CitibankValidator;

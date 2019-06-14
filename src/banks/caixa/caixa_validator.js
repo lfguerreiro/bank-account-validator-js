@@ -11,7 +11,9 @@ class CaixaValidador {
   }
 
   accountNumberIsValid(accountNumber) {
-    return (accountNumber.length == this.accountNumberLength() &&
+    let account = GenericBankAccountValidator.normalizeStartValue(accountNumber, this.accountNumberLength(), 0);
+    GenericBankAccountValidator.normalizeStartValue(account, this.accountNumberLength(), 0);
+    return (account.length == this.accountNumberLength() &&
         CommonBankAccountValidator.accountNumberIsValid(accountNumber));
   }
 
@@ -24,7 +26,11 @@ class CaixaValidador {
   }
 
   accountCheckNumberMatch(bankAccount) {
-    var checkNumberCalculated = CaixaCheckNumberCalculator.calculate(bankAccount.agencyNumber, bankAccount.accountNumber);
+    let transformAccount = bankAccount.accountNumber.split('');
+    const sizeAccount = this.accountNumberLength() - transformAccount.length;
+    transformAccount.splice(3,0, ''.padStart(sizeAccount, '0'));
+    
+    let checkNumberCalculated = CaixaCheckNumberCalculator.calculate(bankAccount.agencyNumber, transformAccount.join(''));
     return checkNumberCalculated === bankAccount.accountCheckNumber;
   }
 
