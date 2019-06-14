@@ -8,7 +8,7 @@ class BradescoValidator {
   }
 
   agencyCheckNumberIsValid(agencyCheckNumber) {
-    return agencyCheckNumber === undefined || agencyCheckNumber === "";
+    return agencyCheckNumber === undefined || agencyCheckNumber === "" || this.agencyCheckNumberLength();
   }
 
   accountNumberIsValid(accountNumber) {
@@ -47,12 +47,14 @@ class BradescoValidator {
   }
 
   agencyCheckNumberMsgError() {
-    return CommonBankAccountValidator.agencyCheckNumberMsgError();
+    return CommonBankAccountValidator.agencyCheckNumberMsgError(this.agencyCheckNumberLength());
   }
 
   accountNumberMsgError() {
     return CommonBankAccountValidator.accountNumberMsgError(this.accountNumberLength());
   }
+
+  agencyCheckNumberLength() {return 1;}
 
   accountNumberLength() { return 7; }
 
