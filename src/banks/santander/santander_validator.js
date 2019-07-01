@@ -9,7 +9,7 @@ export default class SantanderValidator {
   }
 
   agencyCheckNumberIsValid(agencyCheckNumber) {
-    return agencyCheckNumber === undefined || agencyCheckNumber === "";
+    return agencyCheckNumber === undefined || agencyCheckNumber === "" || this.agencyCheckNumberLength();
   }
 
   accountNumberIsValid(accountNumber) {
@@ -36,7 +36,7 @@ export default class SantanderValidator {
   }
 
   agencyCheckNumberMsgError() {
-    return CommonBankAccountValidator.agencyCheckNumberMsgError();
+    return CommonBankAccountValidator.agencyCheckNumberMsgError(this.agencyCheckNumberLength());
   }
 
   accountNumberMsgError() {
@@ -44,6 +44,8 @@ export default class SantanderValidator {
   }
 
   agencytNumberLength() { return 4;}
+  
+  agencyCheckNumberLength() {return 1;}
 
   accountNumberLength() { return 8; }
 

@@ -9,7 +9,7 @@ class BancoDoBrasilValidator {
   }
 
   agencyCheckNumberIsValid(agencyCheckNumber) {
-    return agencyCheckNumber === undefined || agencyCheckNumber === "";
+    return agencyCheckNumber === undefined || agencyCheckNumber === "" || this.agencyCheckNumberLength();
   }
 
   accountNumberIsValid(accountNumber) {

@@ -24,7 +24,7 @@ class SantanderCheckNumberCalculator {
 
     accountModule(sumSeq) {
         let sub1 = (sumSeq).toString().substring(1);
-        if(sub1 === 0) {
+        if(sub1 === "0") {
             return "0";
         } else {
             return (10 - sub1).toString();
