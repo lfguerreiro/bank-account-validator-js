@@ -22,7 +22,7 @@ export default class BankAccount {
         [BANKS.CITIBANK]: new CitibankValidator(),
         [BANKS.HSBC]: new HSBCValidator(),
         [BANKS.BANRISUL]: new BanrisulValidator(),
-        [BANKS.CAIXA]: new CaixaValidador(),
+        // [BANKS.CAIXA]: new CaixaValidador(),
         [BANKS.REAL]: new RealValidator()
       };
   }

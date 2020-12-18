@@ -2,6 +2,7 @@
 /build/*
 /.grunt/*
 /cov/*
+dist/*
 
 _SpecRunner.html
 
